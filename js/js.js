@@ -1,38 +1,25 @@
-const countryName = "австраЛия";
+const filter = function (array, test) {
+  const filteredElements = [];
 
-const CANCELED_BY_USER = "Отменено пользователем!";
-const NO_DELIVERY = "В выбранную страну доставка недоступна.";
-const CHINA = "Китай";
-const AUSTRALIA = "Австралия";
-const INDIA = "Индия";
-const JAMAICA = "Ямайка";
-let message;
-let price = 0;
-let country;
-if (countryName === null) {
-  message = CANCELED_BY_USER;
-} else {
-  country =
-    countryName[0].toUpperCase() + countryName.slice(1, 10).toLowerCase(); // Write code on this line
-  switch (country) {
-    case CHINA:
-      price = 100;
-      break;
-    case AUSTRALIA:
-      price = 170;
-      break;
-    case INDIA:
-      price = 80;
-      break;
-    case JAMAICA:
-      price = 120;
-      break;
-    default:
-      message = NO_DELIVERY;
+  for (const element of array) {
+    const passed = test(element);
+
+    if (passed) {
+      filteredElements.push(element);
+    }
   }
-}
-if (price > 0) {
-  message = `Доставка в ${country} будет стоить ${price} кредитов`;
-}
-console.log(country);
-console.log(message);
+
+  return filteredElements;
+};
+
+const fruits = [
+  { name: "apples", quantity: 200, isFresh: true },
+  { name: "grapes", quantity: 150, isFresh: false },
+  { name: "bananas", quantity: 100, isFresh: true },
+];
+
+const freshFruits = filter(fruits, (fruit) => fruit.isFresh);
+console.log(freshFruits); // массив с объектами apples и bananas
+
+const fruitsWithQuantity = filter(fruits, (fruit) => fruit.quantity >= 120);
+console.log(fruitsWithAmount); // массив с объектами apples и grapes
